@@ -1,0 +1,28 @@
+version: '3.5'
+services:
+  db:
+    container_name: db_mysql
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - ./data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_USER = root
+      - MYSQL_DATABASE = casadocodigo
+      - MYSQL_ROOT_PASSWORD = 1234
+    networks:
+      - cc_network
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8000:8080
+    networks:
+      - cc_network
+networks:
+  cc_network:
+    name: cc_network
+    driver: bridge
